@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMWMaker - Subscribe to MNCE TV</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="panel form-panel">
+            <header class="app-header">
+                <div class="header-left">
+                    <div class="title-row">
+                        <h1>SWEP Creator</h1>
+                        <h3 class="lek">Version</h3>
+                        <h3 class="ver">1.0</h3>
+                    </div>
+                    <p>Configure your weapon. Lua template generates automatically!</p>
+                </div>
+                
+                <div class="header-right">
+                    <a href="#" id="yt-link" title="Subscribe to MNCE TV!">
+                        <img src="YTCHANNEL.png" alt="MNCE TV" class="channel-logo" style="cursor: pointer;">
+                    </a>
+                </div>
+            </header>
+
+            <form id="swep-form">
+                <div class="section-title">General Info</div>
+                <div class="form-group row">
+                    <div class="col">
+                        <label>Print Name (In-Game Name)</label>
+                        <input type="text" id="wep-name" value="Custom SMG">
+                    </div>
+                    <div class="col">
+                        <label>Category</label>
+                        <input type="text" id="wep-category" value="My Custom Weapons">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <label>Addon Folder Name</label>
+                        <input type="text" id="addon-folder" value="custom_smg_mod">
+                    </div>
+                    <div class="col">
+                        <label>Weapon Class Name</label>
+                        <input type="text" id="wep-class" value="weapon_customsmg">
+                    </div>
+                </div>
+
+                <div class="section-title">Models (.mdl)</div>
+                <div class="form-group">
+                    <label>View Model (First Person)</label>
+                    <div class="file-picker">
+                        <input type="text" id="wep-vmodel" value="models/weapons/c_smg1.mdl">
+                        <button type="button" class="btn-secondary browse-btn">Browse</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>World Model (Third Person)</label>
+                    <div class="file-picker">
+                        <input type="text" id="wep-wmodel" value="models/weapons/w_smg1.mdl">
+                        <button type="button" class="btn-secondary browse-btn">Browse</button>
+                    </div>
+                </div>
+
+                <div class="section-title">Fire Mechanics</div>
+                <div class="form-group">
+                    <label>Weapon Type</label>
+                    <select id="wep-type">
+                        <option value="hitscan" selected>Hitscan (Bullets)</option>
+                        <option value="projectile">Projectile (Entity Class)</option>
+                        <option value="prop">Prop (Physical Model)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="hitscan-settings">
+                    <label>Bullet Damage</label>
+                    <input type="number" id="wep-damage" value="12">
+                </div>
+
+                <div class="form-group hidden" id="projectile-settings">
+                    <label>Entity Class</label>
+                    <input type="text" id="wep-projectile-ent" value="rpg_missile">
+                </div>
+
+                <div class="form-group hidden" id="prop-settings">
+                    <label>Projectile Model (.mdl)</label>
+                    <div class="file-picker">
+                        <input type="text" id="wep-prop-mdl" value="models/props_junk/watermelon01.mdl">
+                        <button type="button" class="btn-secondary browse-btn">Browse</button>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <label>Ammo Type</label>
+                        <select id="wep-ammo">
+                            <option value="pistol">Pistol</option>
+                            <option value="smg1" selected>SMG</option>
+                            <option value="ar2">Rifle</option>
+                            <option value="RPG_Round">RPG Round</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label>Clip Size</label>
+                        <input type="number" id="wep-clip" value="45" min="1">
+                    </div>
+                    <div class="col">
+                        <label>Fire Delay</label>
+                        <input type="number" step="0.01" id="wep-delay" value="0.08">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="wep-auto" checked> Automatic Fire
+                    </label>
+                </div>
+
+                <div class="section-title">Advanced Mechanics</div>
+                <div class="form-group row">
+                    <div class="col">
+                        <label>Player Hold Type</label>
+                        <select id="wep-holdtype">
+                            <option value="pistol">Pistol (1 Hand)</option>
+                            <option value="smg" selected>SMG (2 Hands)</option>
+                            <option value="ar2">Rifle (Shouldered)</option>
+                            <option value="shotgun">Shotgun</option>
+                            <option value="rpg">RPG / Heavy</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label>Shoot Sound</label>
+                        <input type="text" id="wep-sound" value="Weapon_SMG1.Single">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <label>Recoil (Kickback)</label>
+                        <input type="number" step="0.1" id="wep-recoil" value="0.5" min="0.1">
+                    </div>
+                    <div class="col">
+                        <label>Bullet Spread</label>
+                        <input type="number" step="0.01" id="wep-spread" value="0.02">
+                    </div>
+                </div>
+
+                <button type="button" class="btn-primary" id="export-btn">Generate Addon Folder</button>
+            </form>
+        </div>
+
+        <div class="panel preview-panel">
+            <div class="preview-header">shared.lua (You can edit this directly!)</div>
+            <textarea id="lua-output" spellcheck="false"></textarea>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
